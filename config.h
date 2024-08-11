@@ -55,13 +55,12 @@ static const char scratchpadname[] = "scratchpad";
 
 /* 自定义tag名称 */
 /* 自定义特定实例的显示状态 */
-//            ﮸  ﭮ 切
 static const char *tags[] = { 
     "一", // tag:0  key:1
     "二", // tag:1  key:2
     "三", // tag:2  key:3
     "四", // tag:3  key:4
-    "五", // tag:4  key:5
+    "", // tag:4  key:5
     "六", // tag:5  key:6
     "七", // tag:6  key:7
     "八", // tag:7  key:8
@@ -135,9 +134,6 @@ static Key keys[] = {
     { MODKEY,                XK_p,           viewtoleft,        {0} },                 /* super left          聚焦到左边的tag */
     { MODKEY,                XK_n,           viewtoright,       {0} },                 /* super right         聚焦到右边的tag */
     { MODKEY|ShiftMask,      XK_p,           tagtoleft,         {0} },                 /* super shift left    将本窗口移动到左边tag */
-    { MODKEY|ShiftMask,      XK_n,           tagtoright,        {0} },                 /* super shift right   将本窗口移动到右边tag */
-
-    { MODKEY,                XK_Tab,         toggleoverview,    {0} },                 /* super tab           显示所有tag 或 跳转到聚焦窗口的tag */
 
     { MODKEY,                XK_comma,       setmfact,          {.f = -0.05} },        /* super ,             缩小主工作区 */
     { MODKEY,                XK_period,      setmfact,          {.f = +0.05} },        /* super .             放大主工作区 */
@@ -149,16 +145,16 @@ static Key keys[] = {
 
     { MODKEY,                XK_t,           togglefloating,    {0} },                 /* super t             开启/关闭 聚焦目标的float模式 */
     { MODKEY|ShiftMask,      XK_t,           toggleallfloating, {0} },                 /* super shift t       开启/关闭 全部目标的float模式 */
-    { MODKEY,                XK_f,           fullscreen,        {0} },                 /* super f             开启/关闭 全屏 */
-    { MODKEY|ShiftMask,      XK_f,           togglebar,         {0} },                 /* super shift f       开启/关闭 状态栏 */
+    { MODKEY,                XK_b,           fullscreen,        {0} },                 /* super f             开启/关闭 全屏 */
+    { MODKEY|ShiftMask,      XK_b,           togglebar,         {0} },                 /* super shift f       开启/关闭 状态栏 */
     { MODKEY,                XK_g,           toggleglobal,      {0} },                 /* super g             开启/关闭 全局 */
     { MODKEY,                XK_e,           incnmaster,        {.i = +1} },           /* super e             改变主工作区窗口数量 (1 2 3中切换) */
     { MODKEY,                XK_u,           toggleborder,      {0} },                 /* super u             开启/关闭 边框 */
 
-    { MODKEY,                XK_b,           focusmon,          {.i = +1} },           /* super b             光标移动到另一个显示器 */
-    { MODKEY|ShiftMask,      XK_b,           tagmon,            {.i = +1} },           /* super shift b       将聚焦窗口移动到另一个显示器 */
+    /*{ MODKEY,                XK_b,           focusmon,          {.i = +1} },           /* super b             光标移动到另一个显示器 */
+    /*{ MODKEY|ShiftMask,      XK_b,           tagmon,            {.i = +1} },           /* super shift b       将聚焦窗口移动到另一个显示器 */
 
-    { MODKEY|ShiftMask,      XK_q,           killclient,        {0} },                 /* super shift q       关闭窗口 */
+    { MODKEY,                XK_q,           killclient,        {0} },                 /* super shift q       关闭窗口 */
     { MODKEY|ControlMask,    XK_q,           forcekillclient,   {0} },                 /* super ctrl q        强制关闭窗口(处理某些情况下无法销毁的窗口) */
     { MODKEY|ShiftMask,      XK_e,           quit,              {0} },                 /* super shift e       退出dwm */
 
@@ -169,16 +165,16 @@ static Key keys[] = {
     { MODKEY|ControlMask,    XK_minus,       setgap,            {.i = +5} },           /* super ctrl +        窗口减小 */
     { MODKEY|ControlMask,    XK_space,       setgap,            {.i = 0} },            /* super ctrl space    窗口重置 */
 
-    { MODKEY|ControlMask,    XK_Up,          movewin,           {.ui = UP} },          /* super ctrl up       移动窗口 */
-    { MODKEY|ControlMask,    XK_Down,        movewin,           {.ui = DOWN} },        /* super ctrl down     移动窗口 */
-    { MODKEY|ControlMask,    XK_Left,        movewin,           {.ui = LEFT} },        /* super ctrl left     移动窗口 */
-    { MODKEY|ControlMask,    XK_Right,       movewin,           {.ui = RIGHT} },       /* super ctrl right    移动窗口 */
-    { MODKEY,                XK_c,           movecenter,        {0} },                 /* super c             移动窗口 */
+    /*{ MODKEY|ControlMask,    XK_Up,          movewin,           {.ui = UP} },          /* super ctrl up       移动窗口 */
+    /*{ MODKEY|ControlMask,    XK_Down,        movewin,           {.ui = DOWN} },        /* super ctrl down     移动窗口 */
+    /*{ MODKEY|ControlMask,    XK_Left,        movewin,           {.ui = LEFT} },        /* super ctrl left     移动窗口 */
+    /*{ MODKEY|ControlMask,    XK_Right,       movewin,           {.ui = RIGHT} },       /* super ctrl right    移动窗口 */
+    /*{ MODKEY,                XK_c,           movecenter,        {0} },                 /* super c             移动窗口 */
 
-    { MODKEY|Mod1Mask,       XK_Up,          resizewin,         {.ui = V_REDUCE} },    /* super alt up        调整窗口 */
-    { MODKEY|Mod1Mask,       XK_Down,        resizewin,         {.ui = V_EXPAND} },    /* super alt down      调整窗口 */
-    { MODKEY|Mod1Mask,       XK_Left,        resizewin,         {.ui = H_REDUCE} },    /* super alt left      调整窗口 */
-    { MODKEY|Mod1Mask,       XK_Right,       resizewin,         {.ui = H_EXPAND} },    /* super alt right     调整窗口 */
+    { MODKEY|ControlMask,    XK_Up,          resizewin,         {.ui = V_REDUCE} },    /* super alt up        调整窗口 */
+    { MODKEY|ControlMask,    XK_Down,        resizewin,         {.ui = V_EXPAND} },    /* super alt down      调整窗口 */
+    { MODKEY|ControlMask,    XK_Left,        resizewin,         {.ui = H_REDUCE} },    /* super alt left      调整窗口 */
+    { MODKEY|ControlMask,    XK_Right,       resizewin,         {.ui = H_EXPAND} },    /* super alt right     调整窗口 */
 
     { MODKEY,                XK_h,           focusdir,          {.i = LEFT } },        /* super h             二维聚焦窗口 */
     { MODKEY,                XK_j,           focusdir,          {.i = DOWN } },        /* super j             二维聚焦窗口 */
@@ -200,11 +196,14 @@ static Key keys[] = {
     { MODKEY|ShiftMask,      XK_Return,      spawn,             SHCMD("st -c float") },                     /* 打开浮动st终端        */
     { MODKEY,                XK_space,       spawn,             SHCMD("~/.config/rofi/launcher.sh") },      /* rofi: 执行drun        */
     { MODKEY,                XK_x,           spawn,             SHCMD("xmodmap $DWM/scripts/xmodmap &") },  /* xmodmap: 启用映射     */
-    { MODKEY|ShiftMask,      XK_Down,        spawn,             SHCMD("$DWM/scripts/set_vol.sh down") },    /* 音量减                */
-    { MODKEY|ShiftMask,      XK_Up,          spawn,             SHCMD("$DWM/scripts/set_vol.sh up") },      /* 音量加                */
     { MODKEY|ShiftMask,      XK_Left,        spawn,             SHCMD("$DWM/scripts/backlight.sh down") },  /* 亮度减                */
     { MODKEY|ShiftMask,      XK_Right,       spawn,             SHCMD("$DWM/scripts/backlight.sh up") },    /* 亮度加                */
     { Mod1Mask,              XK_c,           spawn,             SHCMD("$DWM/scripts/study.sh english") },   /* 添加生词              */
+
+
+    { 0,      XF86XK_AudioLowerVolume,        spawn,             SHCMD("$DWM/scripts/set_vol.sh down") },    /* 音量减                */
+    { 0,      XF86XK_AudioRaiseVolume,        spawn,             SHCMD("$DWM/scripts/set_vol.sh up") },      /* 音量加                */
+    { 0,      XF86XK_AudioMute,               spawn,             SHCMD("$DWM/scripts/set_vol.sh mute") },      /* 音量加                */
 
     /* super key : 跳转到对应tag (可附加一条命令 若目标目录无窗口，则执行该命令) */
     /* super shift key : 将聚焦窗口移动到对应tag */

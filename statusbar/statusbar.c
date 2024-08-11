@@ -46,6 +46,7 @@ static void date();
 static void light();
 static void vol();
 static void bat();
+static void test(char *cmd);
 
 void icons() {
     char icon[20] = "󰊠";
@@ -121,6 +122,8 @@ void cpu() {
     sscanf(buffer, "cpu %llu %llu %llu %llu %llu %llu %llu %llu", &user, &nice, &system, &idle,
            &iowait, &irq, &softirq, &steal);
 
+    /*printf("cpu %llu %llu %llu %llu %llu %llu %llu %llu", user, nice, system, idle,*/
+    /*       iowait, irq, softirq, steal);*/
     ullong prev_total = prev_user + prev_nice + prev_system + prev_idle + prev_iowait + prev_irq +
                         prev_softirq + prev_steal;
     ullong total = user + nice + system + idle + iowait + irq + softirq + steal;
@@ -320,7 +323,7 @@ void bat() {
 
 void refresh() {
     char status[2048] = "";
-    sprintf(status, "%s%s%s%s%s%s%s%s", _icons, _wifi, _cpu, _mem, _date, _light, _vol, _bat);
+    sprintf(status, "%s%s%s%s%s%s%s", _icons, _wifi, _cpu, _mem, _date, _light, _vol);
     char cmd[2048] = "";
     snprintf(cmd, sizeof(cmd), "xsetroot -name \"%s\"", status);
     system(cmd);
@@ -332,7 +335,7 @@ void cron() {
     while (1) {
         fp = fopen(tempfile, "r");
         if (fp != NULL || !i) {
-            icons(), wifi(), light(), vol(), cpu(), mem(), bat();
+            icons(), wifi(), light(), vol(), cpu(), mem();
             if (fp != NULL) {
                 fclose(fp);
                 remove(tempfile);
@@ -367,8 +370,26 @@ void click(char *signal, char *button) {
     system(script);
 }
 
+void test(char *cmd) {
+    char script[100] = "";
+    if (!strcmp(cmd, "icons")) {
+    } else if (!strcmp(cmd, "wifi")) {
+    } else if (!strcmp(cmd, "cpu")) {
+        cpu();
+        printf("cpu=%s", _cpu);
+    } else if (!strcmp(cmd, "mem")) {
+    } else if (!strcmp(cmd, "date")) {
+    } else if (!strcmp(cmd, "light")) {
+    } else if (!strcmp(cmd, "vol")) {
+    }
+}
+
 int main(int argc, char *argv[]) {
     if (argc > 1) {
+        if (strcmp(argv[1], "test")==0){
+            test(argv[2]);
+        }
+
         if (argc == 2 && strcmp(argv[1], "cron") == 0) {
             cron();
         } else if (argc == 3) {

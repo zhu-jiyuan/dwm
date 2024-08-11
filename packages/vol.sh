@@ -14,7 +14,7 @@
 # 静音 -> Mute: no                                                                                 
 # 音量 -> Volume: front-left: 13183 /  20% / -41.79 dB,   front-right: 13183 /  20% / -41.79 dB
 
-tempfile=~/.config/dwm/statusbar/temp
+tempfile=$DWM/statusbar/temp
 update() {
   sink=$(pactl info | grep 'Default Sink' | awk '{print $3}')
   if [ "$sink" = "" ]; then sink=$(pactl info | grep '默认音频入口' | awk -F'：' '{print $2}');fi

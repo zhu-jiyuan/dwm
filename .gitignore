@@ -8,4 +8,5 @@ scripts/network.py
 scripts/__pycache__
 
 dwm
+dwm_statusbar
 *.o
