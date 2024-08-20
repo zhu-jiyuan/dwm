@@ -1,13 +1,14 @@
 #! /bin/zsh
 
 
-# xset -b
+xset -b
 
 sleep 1
 # xrandr --output HDMI-0 --primary --auto --above DP-4
 dwm_statusbar cron &
+$DWM/scripts/wallpaper.sh 1 start
 # $_thisdir/scripts/rechange_wallpaper.sh &
-picom --experimental-backends &
+picom &
 # xfce4-power-manager &
 dunst &
 flameshot &

@@ -2,7 +2,7 @@
 #set -x
 
 Path=~/.config/wallpaper/
-Path_tmp=~/.local/state/dwm/wallpaper
+Path_tmp=~/.local/temp/dwm/wallpaper
 files=($(ls ${Path} | grep -E 'png|jpg'))
 len=${#files[*]}
 index=($(cat ${Path_tmp}))
