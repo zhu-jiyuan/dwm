@@ -11,9 +11,9 @@ static const char *colors[][2] = {
     [Bat]   = {"^c#3B001B^^b#4865660x88^", "^c#3B001B^^b#4865660x99^"},
 };
 static const char *devs[] = {
-    [Wired]       = ":enp88s0",
+    [Wired]       = ":eno1",
     [Wireless]    = ":wlp0s20f3",
-    [Temperature] = "/sys/class/hwmon/hwmon5/temp1_input",
+    [Temperature] = "/sys/class/hwmon/hwmon1/temp1_input",
     [Capacity]    = "/sys/class/power_supply/BAT0/capacity",
     [Charging]    = "/sys/class/power_supply/BAT0/status",
     [Plug]        = "/sys/class/power_supply/ADP0/online",
