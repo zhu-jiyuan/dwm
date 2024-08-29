@@ -24,6 +24,7 @@ update() {
     volunmuted=$(pactl list sinks | grep $sink -A 6 | sed -n '7p' | grep 'Mute: no')
     vol_text=$(pactl list sinks | grep $sink -A 7 | sed -n '8p' | awk '{printf int($5)}')
   fi
+
   if [ ! "$volunmuted" ];      then vol_text="--"; vol_icon="";
   elif [ "$vol_text" -eq 0 ];  then vol_text="00"; vol_icon="";
   elif [ "$vol_text" -lt 10 ]; then vol_icon=""; vol_text=0$vol_text;

@@ -381,6 +381,8 @@ void test(char *cmd) {
     } else if (!strcmp(cmd, "date")) {
     } else if (!strcmp(cmd, "light")) {
     } else if (!strcmp(cmd, "vol")) {
+        vol();
+        printf("vol=%s", _vol);
     }
 }
 

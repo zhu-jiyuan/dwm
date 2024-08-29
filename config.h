@@ -90,10 +90,12 @@ static const Rule rules[] = {
     { NULL,                  NULL,          "打开文件",    0,         1,          0,        0,          -1,      0}, // 打开文件            浮动
     { NULL,                  NULL,          "图片查看器",  0,         1,          0,        0,          -1,      0}, // qq图片查看器        浮动
     { NULL,                  NULL,          "图片查看",    0,         1,          0,        0,          -1,      0}, // 微信图片查看器      浮动
+    { NULL,                  NULL,          "Media viewer",    0,            1,          0,          0,        -1,      0}, // tg图片查看器        浮动
     /*{ NULL,                  NULL,          "电源管理器",  0,         1,          0,        0,          -1,      3}, // 电源管理器          浮动 屏幕右上*/
 
     {"obs",                  NULL,          NULL,          1 << 3,    0,          0,          0,        -1,      0}, // obs        tag -> 󰕧
     {"chrome",               NULL,          NULL,          1 << 4,    0,          0,          0,        -1,      0}, // chrome     tag -> 
+    { NULL,                 "qq",           NULL,          1 << 6,    0,          0,          1,        -1,      0}, // qq         tag -> ﬄ 无边框
     
     { "Vncviewer",           NULL,          NULL,          0,         1,          0,        1,          -1,      2}, // Vncviewer           浮动、无边框 屏幕顶部
     { "flameshot",           NULL,          NULL,          0,         1,          0,        0,          -1,      0}, // 火焰截图            浮动
@@ -213,7 +215,7 @@ static Key keys[] = {
     TAGKEYS(XK_2, 1, 0)
     TAGKEYS(XK_3, 2, 0)
     /*TAGKEYS(XK_4, 3, 0)*/
-    TAGKEYS(XK_c, 4, "google-chrome-stable")
+    TAGKEYS(XK_c, 3, "google-chrome-stable")
     TAGKEYS(XK_5, 4, 0)
     TAGKEYS(XK_6, 5, 0)
     TAGKEYS(XK_7, 6, 0)
