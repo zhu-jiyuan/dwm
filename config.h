@@ -62,7 +62,7 @@ static const char *tags[] = {
     "四", // tag:3  key:4
     "", // tag:4  key:5
     "六", // tag:5  key:6
-    "七", // tag:6  key:7
+    "", // tag:6  key:7
     "八", // tag:7  key:8
     "九", // tag:8  key:9
 };

@@ -175,9 +175,9 @@ void date() {
     time_t time_now;
     time(&time_now);
     struct tm *time_info = localtime(&time_now);
-    char time_n[6], *icon = "󰃰";
+    char time_n[18], *icon = "󰃰";
 
-    strftime(time_n, sizeof(time_n), "%H:%M", time_info);
+    strftime(time_n, sizeof(time_n), "%Y/%m/%d %H:%M", time_info);
 
     sprintf(_date, "^sdate^%s %s %s %s ", colors[Date][0], icon, colors[Date][1], time_n);
 }
@@ -217,23 +217,31 @@ void vol() {
     unsigned int vol = 0;
     int muted = 0;
 
-    FILE *fp = NULL;
-    fp = popen("amixer get Master", "r");
+    FILE *fp = popen("pactl get-sink-volume @DEFAULT_SINK@", "r");
     if (fp == NULL) {
         return;
     }
     while (fgets(buffer, sizeof(buffer) - 1, fp) != NULL) {
-        char *vol_pr = strstr(buffer, "[");
+        char *vol_pr = strstr(buffer, "/");  // 找到音量的百分比
         if (vol_pr != NULL) {
-            vol_pr++;
-            vol = atoi(vol_pr);
+            vol_pr += 1;  // 跳过 '/'
+            vol = atoi(vol_pr);  // 转换为整数
         }
     }
     pclose(fp);
 
-    if (strstr(buffer, "[off]") != NULL) {
-        muted = 1;
+    // 获取静音状态
+    fp = popen("pactl get-sink-mute @DEFAULT_SINK@", "r");
+    if (fp == NULL) {
+        return;
     }
+    while (fgets(buffer, sizeof(buffer) - 1, fp) != NULL) {
+        if (strstr(buffer, "yes") != NULL) {
+            muted = 1;
+        }
+    }
+    pclose(fp);
+
     if (muted) {
         strncpy(icon, "", sizeof(icon) - 1);
         sprintf(_vol, "^svol^%s %s %s -- ", colors[Vol][0], icon, colors[Vol][1]);
@@ -248,6 +256,7 @@ void vol() {
         sprintf(_vol, "^svol^%s %s %s %d%% ", colors[Vol][0], icon, colors[Vol][1], vol);
     }
 }
+
 
 void bat() {
     char buffer[256] = "";
@@ -379,6 +388,8 @@ void test(char *cmd) {
         printf("cpu=%s", _cpu);
     } else if (!strcmp(cmd, "mem")) {
     } else if (!strcmp(cmd, "date")) {
+        date();
+        printf("data=%s", _date);
     } else if (!strcmp(cmd, "light")) {
     } else if (!strcmp(cmd, "vol")) {
         vol();
